@@ -12,6 +12,8 @@ from django.utils.functional import curry
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _
 from django.core.exceptions import PermissionDenied
+import delfos.models as delfosmodels
+
 
 class ReverseInlineFormSet(BaseModelFormSet):
     '''
