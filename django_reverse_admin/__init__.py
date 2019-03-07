@@ -192,7 +192,10 @@ class ReverseModelAdmin(ModelAdmin):
                 for formset, inline in zip(formsets, self.get_inline_instances(request)):
                     if not isinstance(inline, ReverseInlineModelAdmin):
                         continue
-                    obj = formset.save()[0]
+                    obj = formset.save(commit=False)[0]
+                    if isinstance(obj, delfosmodels.DelfosMetricAggregationRule):
+                        obj = obj._default_attr_inline_portscan(obj)
+                    obj.save()
                     setattr(new_object, inline.parent_fk_name, obj)
                 self.save_model(request, new_object, form, change=False)
                 form.save_m2m()
